@@ -43,8 +43,7 @@ Project Organization
     │   │
     │   ├── models         <- Scripts to train models and then use trained models to make
     │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
+    │   │   └── model.py
     │   │
     │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
     │       └── visualize.py
@@ -55,3 +54,19 @@ Project Organization
 --------
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+
+
+## GCloud Dataproc Setup Process
+
+- Install Google Cloud SDK
+- Set the following environment variables:
+    - PROJECT
+    - BUCKET_NAME
+    - CLUSTER
+    - REGION
+- Create Dataproc cluster
+
+
+# Running the Job
+`gcloud dataproc jobs submit pyspark <model.py> --cluster=${CLUSTER} --region=${REGION} -- gs://uga-dsp/project1/files gs://anthony-p1-bucket/output`
+
