@@ -1,5 +1,8 @@
 import pyspark
 import sys
+
+# import urllib.request as read_file
+
 # main entry point for Spark
 # SparkContext represents connection to a Spark cluster
 spark_conf = pyspark.SparkConf().setMaster("local[*]").setAppName("p0")
@@ -14,6 +17,55 @@ outputUri=sys.argv[2]
 
 
 lines = sc.textFile(sys.argv[1])
-words = lines.flatMap(lambda line: line.split())
-wordCounts = words.map(lambda word: (word, 1)).reduceByKey(lambda count1, count2: count1 + count2)
-wordCounts.saveAsTextFile(sys.argv[2])
+
+# Call collect() to get all data
+llist = lines.collect()
+
+# generate dictionary
+hexidecimal_list = "0123456789ABCDEF"
+dictionary = {}
+# ignore list: stop words
+ignore_list = ["??"]
+
+for i in hexidecimal_list:
+  for j in hexidecimal_list:
+      dictionary.update({i+j: 1})
+
+"""
+line1 = llist[0]
+binaryPath='gs://uga-dsp/project1/data/bytes/'+line1.strip()+'.bytes'
+bytesfile = sc.textFile(binaryPath)
+content = bytesfile.collect()
+# print(content)
+for line in content:
+    line = line.split(" ")[1:]
+    for charactor in line:
+      if charactor not in ignore_list:
+        dictionary[charactor] += 1
+
+
+rdd1 = sc.parallelize([dictionary])
+rdd1.repartition(1).saveAsTextFile(sys.argv[2]+"/"+line1)
+"""
+
+
+for line in llist:
+    # make a copy of dictionary
+    dictionary_tmp = dictionary
+    # read bytes file
+    binaryPath='gs://uga-dsp/project1/data/bytes/'+line.strip()+'.bytes'
+    bytesfile = sc.textFile(binaryPath)
+    content = bytesfile.collect()
+    # read lines
+    for item in content:
+        item = item.split(" ")[1:]
+        for charactor in item:
+          if charactor not in ignore_list:
+            # update dictionary
+            dictionary_tmp[charactor] += 1
+    rdd = sc.parallelize([dictionary_tmp])
+    rdd.repartition(1).saveAsTextFile(sys.argv[2]+"/"+line)
+
+
+
+
