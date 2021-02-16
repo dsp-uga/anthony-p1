@@ -31,23 +31,6 @@ for i in hexidecimal_list:
   for j in hexidecimal_list:
       dictionary.update({i+j: 1})
 
-"""
-line1 = llist[0]
-binaryPath='gs://uga-dsp/project1/data/bytes/'+line1.strip()+'.bytes'
-bytesfile = sc.textFile(binaryPath)
-content = bytesfile.collect()
-# print(content)
-for line in content:
-    line = line.split(" ")[1:]
-    for charactor in line:
-      if charactor not in ignore_list:
-        dictionary[charactor] += 1
-
-
-rdd1 = sc.parallelize([dictionary])
-rdd1.repartition(1).saveAsTextFile(sys.argv[2]+"/"+line1)
-"""
-
 
 for line in llist:
     # make a copy of dictionary
