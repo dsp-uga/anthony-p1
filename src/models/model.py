@@ -13,10 +13,10 @@ sc = pyspark.SparkContext(conf = spark_conf)
 # 3. Work on other models
 
 def preprocess():
-    # TODO
+               '''TODO'''
 
 def naive_bayes():
-    # TODO
+               ''' TODO'''
 
 def random_forest():
-    # TODO
+                 '''TODO'''
