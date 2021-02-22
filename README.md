@@ -55,6 +55,11 @@ Project Organization
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
 
+## Team Member:
+
+Zhongliang Zhou
+##
+##
 
 ## GCloud Dataproc Setup Process
 
@@ -67,6 +72,30 @@ Project Organization
 - Create Dataproc cluster
 
 
-# Running the Job
+## Running the Job
 `gcloud dataproc jobs submit pyspark <model.py> --cluster=${CLUSTER} --region=${REGION} -- gs://uga-dsp/project1/files gs://anthony-p1-bucket/output`
+
+## Data preprocessing and Feature extraction
+
+X_train.txt, X_train_small.txt, X_test_small.txt and X_test.txt contains names fore the bytes files. By looking at an example of the bytes files, we find that each bytes files contains multiple lines. Starting with an line indicator, each line can be seperated into multiple bicharactor units.
+
+We process each bytes files first to a single line without line indicators and then process it by regarding each two charactors as a word unit. Because hexidecimal combinations, the vocabulary we have would be 256. 
+
+Then, we count each word's apperance based on this vocabulary. And we also removed "??". We further use laplace smoothing by initially set every word count as 1. This would prevent 0 division in naive bayes.
+
+After process, the dataset is transfered into a matrix form of [N, 256]
+
+## Model Training and results
+
+We tested multiple different methods based on the feature matirx generated in the previous step.
+|    Models   | Performance  | Discription |
+| :----: | :----:  |:----: |
+|naive bayes  | 40.51|baseline|
+|random forest  | 73.21|without paramters tuning|
+| random forest | 95.21 |with paramters tuning|
+| GDBT |99.55 | with parameters tuning |
+
+## Conclusion
+
+In this project, we explore the concepts of Bags of Words model and Naive Bayers. We learned how to perform data prepration on GCP platform
 
