@@ -58,8 +58,8 @@ Project Organization
 ## Team Member:
 
 Zhongliang Zhou
-##
-##
+Shivam Chandan
+Nathan Wynn
 
 ## GCloud Dataproc Setup Process
 
