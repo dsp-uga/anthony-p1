@@ -95,6 +95,12 @@ We tested multiple different methods based on the feature matirx generated in th
 | random forest | 95.21 |with paramters tuning|
 | GDBT |99.55 | with parameters tuning |
 
+## Autolab Result
+
+score: 98.34619625
+ranking: 2
+name:Zhou
+
 ## Conclusion
 
 In this project, we explore the concepts of Bags of Words model and Naive Bayers. We learned how to perform data prepration on GCP platform
